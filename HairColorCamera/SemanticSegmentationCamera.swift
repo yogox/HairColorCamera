@@ -32,7 +32,9 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
     private var captureSession: [CameraPosition: AVCaptureSession] = [:]
     private var dataOutput: [CameraPosition: AVCapturePhotoOutput] = [:]
     private var currentCameraPosition: CameraPosition
-    
+    private let context = CIContext(options: nil)
+
+
     override init() {
         currentCameraPosition = .back
         super.init()
@@ -78,7 +80,9 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
         if captureSession.canAddOutput(photoOutput) {
             captureSession.addOutput(photoOutput)
             
+            photoOutput.isHighResolutionCaptureEnabled = true
             photoOutput.isDepthDataDeliveryEnabled = photoOutput.isDepthDataDeliverySupported
+            photoOutput.isPortraitEffectsMatteDeliveryEnabled = photoOutput.isPortraitEffectsMatteDeliverySupported
             
             // SemanticSegmentationMatteの設定
             photoOutput.enabledSemanticSegmentationMatteTypes = photoOutput.availableSemanticSegmentationMatteTypes
@@ -99,6 +103,8 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
         
         // SemanticSegmentationMatteの設定
         settings.enabledSemanticSegmentationMatteTypes = dataOutput[currentCameraPosition]?.availableSemanticSegmentationMatteTypes ?? [AVSemanticSegmentationMatte.MatteType]()
+        // セグメンテーションのため試験的に高解像度設定
+        settings.isHighResolutionPhotoEnabled = true
         
         dataOutput[currentCameraPosition]?.capturePhoto(with: settings, delegate: self)
     }
@@ -114,7 +120,10 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
               let ciImage = CIImage(data: imageData)
         else { return }
         
-        var photoImage = ciImage
+        var photoImage = ciImage.oriented(.right)
+
+        let context = self.context
+        let cgImage:CGImage?
         
         // skin, hair, teethのsemanticSegmentationMatteを取得
         if let hairMatte = photo.semanticSegmentationMatte(for: .hair)
@@ -124,18 +133,24 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
             // CIImageを作成
             let hairImage = CIImage(semanticSegmentationMatte: hairMatte, options: [.auxiliarySemanticSegmentationHairMatte: true])
             
-            // 自作カスタムフィルターで肌の色を変更
+            // 自作カスタムフィルターで髪の色を変更
             let matteFilter = CIChangeHairColor()
             matteFilter.inputImage = photoImage
-            matteFilter.hairMatteImage = hairImage
-            photoImage = matteFilter.outputImage!
+            matteFilter.hairMatteImage = hairImage!.oriented(.right)
+            //TODO: テストが終了したら削除
+            matteFilter.printRange = true
+            let coloredPhoto = matteFilter.outputImage!
+
+            cgImage = context.createCGImage(coloredPhoto, from: coloredPhoto.extent)
+            UIImageWriteToSavedPhotosAlbum(UIImage(cgImage: cgImage!), nil, nil, nil)
+            
+            let originalPhoto = context.createCGImage(photoImage, from: photoImage.extent)
+            UIImageWriteToSavedPhotosAlbum(UIImage(cgImage: originalPhoto!), nil, nil, nil)
+        } else {
+            cgImage = context.createCGImage(photoImage, from: photoImage.extent)
         }
         
-        // 画像の向きを決め打ち修正
-        photoImage = photoImage.oriented(.right)
-        // Imageクラスでも描画されるようにCGImage経由でUIImageに変換
-        let context = CIContext(options: nil)
-        let cgImage = context.createCGImage(photoImage, from: photoImage.extent)
+        // Imageクラスで描画されるようにCGImage経由でUIImageに変換する必要がある
         self.image = UIImage(cgImage: cgImage!)
     }
 }

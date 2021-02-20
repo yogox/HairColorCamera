@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C612597D256F73FF00F5D953 /* filter.metal in Sources */ = {isa = PBXBuildFile; fileRef = C612597C256F73FF00F5D953 /* filter.metal */; };
 		C662B5E2252DB2090067CA57 /* SemanticSegmentationCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C662B5E1252DB2090067CA57 /* SemanticSegmentationCamera.swift */; };
 		C662B5EA252DB2BB0067CA57 /* CIChangeHairColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C662B5E9252DB2BB0067CA57 /* CIChangeHairColor.swift */; };
 		C6CA50B824DAE5C000A35D76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CA50B724DAE5C000A35D76 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C612597C256F73FF00F5D953 /* filter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = filter.metal; sourceTree = "<group>"; };
 		C662B5E1252DB2090067CA57 /* SemanticSegmentationCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemanticSegmentationCamera.swift; sourceTree = "<group>"; };
 		C662B5E9252DB2BB0067CA57 /* CIChangeHairColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIChangeHairColor.swift; sourceTree = "<group>"; };
 		C6CA50B424DAE5C000A35D76 /* HairColorCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HairColorCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +105,7 @@
 		C6CA50B624DAE5C000A35D76 /* HairColorCamera */ = {
 			isa = PBXGroup;
 			children = (
+				C612597C256F73FF00F5D953 /* filter.metal */,
 				C6CA50B724DAE5C000A35D76 /* AppDelegate.swift */,
 				C6CA50B924DAE5C000A35D76 /* SceneDelegate.swift */,
 				C6CA50BB24DAE5C000A35D76 /* ContentView.swift */,
@@ -276,6 +279,7 @@
 				C662B5EA252DB2BB0067CA57 /* CIChangeHairColor.swift in Sources */,
 				C662B5E2252DB2090067CA57 /* SemanticSegmentationCamera.swift in Sources */,
 				C6CA50B824DAE5C000A35D76 /* AppDelegate.swift in Sources */,
+				C612597D256F73FF00F5D953 /* filter.metal in Sources */,
 				C6CA50BA24DAE5C000A35D76 /* SceneDelegate.swift in Sources */,
 				C6CA50BC24DAE5C000A35D76 /* ContentView.swift in Sources */,
 			);
@@ -449,11 +453,13 @@
 				DEVELOPMENT_TEAM = 39R6S7RLQ5;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = HairColorCamera/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MTLLINKER_FLAGS = "-cikernel";
+				MTL_COMPILER_FLAGS = "-fcikernel";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.yogo.HairColorCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -470,11 +476,13 @@
 				DEVELOPMENT_TEAM = 39R6S7RLQ5;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = HairColorCamera/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MTLLINKER_FLAGS = "-cikernel";
+				MTL_COMPILER_FLAGS = "-fcikernel";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.yogo.HairColorCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

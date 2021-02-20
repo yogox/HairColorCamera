@@ -14,12 +14,13 @@ struct CALayerView: UIViewControllerRepresentable {
     var caLayer: AVCaptureVideoPreviewLayer
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<CALayerView>) -> UIViewController {
+//    func makeUIViewController(context: Context) -> UIViewController {
         let viewController = UIViewController()
         
         let width = viewController.view.frame.width
         let height = viewController.view.frame.height
         let previewHeight = width * 4 / 3
-        
+
         caLayer.videoGravity = .resizeAspect
         viewController.view.layer.addSublayer(caLayer)
         caLayer.frame = viewController.view.frame
@@ -129,7 +130,7 @@ struct ContentView: View {
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .background(Color.black)
-                
+
             }
         }
     }
@@ -198,6 +199,9 @@ struct TransferPhotoView: View {
                     .background(Color.black)
             }
             
+            Spacer()
+            
+//            Text(self.segmentationCamera.bgColor)
             Spacer()
             
             HStack {
