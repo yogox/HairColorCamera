@@ -137,6 +137,10 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
             let matteFilter = CIChangeHairColor()
             matteFilter.inputImage = photoImage
             matteFilter.hairMatteImage = hairImage!.oriented(.right)
+            //TODO: テストカラーを変更可能にする
+            matteFilter.minColor = CIColor(red: 0, green: 0.27, blue: 0)
+            matteFilter.modeColor = CIColor(red: 0.22, green: 0.94, blue: 0.27)
+            matteFilter.maxColor = CIColor(red: 1, green: 1, blue: 1)
             //TODO: テストが終了したら削除
             matteFilter.printRange = true
             let coloredPhoto = matteFilter.outputImage!
