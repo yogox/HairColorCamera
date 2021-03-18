@@ -9,7 +9,6 @@
 import SwiftUI
 import AVFoundation
 
-
 extension AVCaptureDevice.Position: CaseIterable {
     public static var allCases: [AVCaptureDevice.Position] {
         return [
@@ -26,14 +25,15 @@ extension AVCaptureDevice.Position: CaseIterable {
 class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, ObservableObject {
     typealias CameraPosition = AVCaptureDevice.Position
 
-    @Published var image: UIImage?
+//    @Published var image: UIImage?
     @Published var previewLayer: [CameraPosition: AVCaptureVideoPreviewLayer] = [:]
     private var captureDevice: AVCaptureDevice!
     private var captureSession: [CameraPosition: AVCaptureSession] = [:]
     private var dataOutput: [CameraPosition: AVCapturePhotoOutput] = [:]
     private var currentCameraPosition: CameraPosition
-    private let context = CIContext(options: nil)
-
+//    private let context = CIContext(options: nil)
+    private let semaphore = DispatchSemaphore(value: 0)
+    var result: (photo: CIImage?, matte: CIImage?)
 
     override init() {
         currentCameraPosition = .back
@@ -98,6 +98,8 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
     }
     
     func takePhoto() {
+        clearResult()
+        
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
         settings.isDepthDataDeliveryEnabled = true
         
@@ -120,11 +122,6 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
               let ciImage = CIImage(data: imageData)
         else { return }
         
-        var photoImage = ciImage.oriented(.right)
-
-        let context = self.context
-        let cgImage:CGImage?
-        
         // skin, hair, teethのsemanticSegmentationMatteを取得
         if let hairMatte = photo.semanticSegmentationMatte(for: .hair)
            , let _ = photo.semanticSegmentationMatte(for: .skin)
@@ -132,29 +129,40 @@ class SemanticSegmentationCamera: NSObject, AVCapturePhotoCaptureDelegate, Obser
         {
             // CIImageを作成
             let hairImage = CIImage(semanticSegmentationMatte: hairMatte, options: [.auxiliarySemanticSegmentationHairMatte: true])
-            
-            // 自作カスタムフィルターで髪の色を変更
-            let matteFilter = CIChangeHairColor()
-            matteFilter.inputImage = photoImage
-            matteFilter.hairMatteImage = hairImage!.oriented(.right)
-            //TODO: テストカラーを変更可能にする
-            matteFilter.minColor = CIColor(red: 0, green: 0.27, blue: 0)
-            matteFilter.modeColor = CIColor(red: 0.22, green: 0.94, blue: 0.27)
-            matteFilter.maxColor = CIColor(red: 1, green: 1, blue: 1)
-            //TODO: テストが終了したら削除
-            matteFilter.printRange = true
-            let coloredPhoto = matteFilter.outputImage!
-
-            cgImage = context.createCGImage(coloredPhoto, from: coloredPhoto.extent)
-            UIImageWriteToSavedPhotosAlbum(UIImage(cgImage: cgImage!), nil, nil, nil)
-            
-            let originalPhoto = context.createCGImage(photoImage, from: photoImage.extent)
-            UIImageWriteToSavedPhotosAlbum(UIImage(cgImage: originalPhoto!), nil, nil, nil)
-        } else {
-            cgImage = context.createCGImage(photoImage, from: photoImage.extent)
+            self.result = (ciImage.oriented(.right), hairImage!.oriented(.right))
         }
-        
-        // Imageクラスで描画されるようにCGImage経由でUIImageに変換する必要がある
-        self.image = UIImage(cgImage: cgImage!)
+    }
+    
+    func clearResult() {
+        self.result = (nil, nil)
+    }
+    
+    func photoOutput(_ output: AVCapturePhotoOutput,
+                     willBeginCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+        // 撮影処理中はプレビューを止める
+        stopSession()
+    }
+
+    func photoOutput(
+        _ output: AVCapturePhotoOutput,
+        didFinishCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings,
+        error: Error?) {
+        semaphore.signal()
+    }
+    
+    func waitPhoto() {
+        semaphore.wait()
+    }
+
+    func stopSession() {
+        if let session = captureSession[currentCameraPosition], session.isRunning == true {
+            session.stopRunning()
+        }
+    }
+
+    func restartSession() {
+        if let session = captureSession[currentCameraPosition], session.isRunning == false {
+            session.startRunning()
+        }
     }
 }

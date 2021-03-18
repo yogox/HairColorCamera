@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C612597D256F73FF00F5D953 /* filter.metal in Sources */ = {isa = PBXBuildFile; fileRef = C612597C256F73FF00F5D953 /* filter.metal */; };
+		C63059AC25E78C3400D3C6D6 /* ColorData.csv in Resources */ = {isa = PBXBuildFile; fileRef = C63059AB25E78C3400D3C6D6 /* ColorData.csv */; };
+		C63059B125E78C7500D3C6D6 /* ColorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63059B025E78C7500D3C6D6 /* ColorMatrix.swift */; };
+		C63059B925E87F6C00D3C6D6 /* ColorChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63059B825E87F6C00D3C6D6 /* ColorChanger.swift */; };
 		C662B5E2252DB2090067CA57 /* SemanticSegmentationCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C662B5E1252DB2090067CA57 /* SemanticSegmentationCamera.swift */; };
 		C662B5EA252DB2BB0067CA57 /* CIChangeHairColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C662B5E9252DB2BB0067CA57 /* CIChangeHairColor.swift */; };
 		C6CA50B824DAE5C000A35D76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CA50B724DAE5C000A35D76 /* AppDelegate.swift */; };
@@ -16,8 +19,6 @@
 		C6CA50BE24DAE5C300A35D76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6CA50BD24DAE5C300A35D76 /* Assets.xcassets */; };
 		C6CA50C124DAE5C300A35D76 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6CA50C024DAE5C300A35D76 /* Preview Assets.xcassets */; };
 		C6CA50C424DAE5C300A35D76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6CA50C224DAE5C300A35D76 /* LaunchScreen.storyboard */; };
-		C6CA50CF24DAE5C400A35D76 /* HairColorCameraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CA50CE24DAE5C400A35D76 /* HairColorCameraTests.swift */; };
-		C6CA50DA24DAE5C400A35D76 /* HairColorCameraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CA50D924DAE5C400A35D76 /* HairColorCameraUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,9 @@
 
 /* Begin PBXFileReference section */
 		C612597C256F73FF00F5D953 /* filter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = filter.metal; sourceTree = "<group>"; };
+		C63059AB25E78C3400D3C6D6 /* ColorData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ColorData.csv; sourceTree = "<group>"; };
+		C63059B025E78C7500D3C6D6 /* ColorMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMatrix.swift; sourceTree = "<group>"; };
+		C63059B825E87F6C00D3C6D6 /* ColorChanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChanger.swift; sourceTree = "<group>"; };
 		C662B5E1252DB2090067CA57 /* SemanticSegmentationCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemanticSegmentationCamera.swift; sourceTree = "<group>"; };
 		C662B5E9252DB2BB0067CA57 /* CIChangeHairColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIChangeHairColor.swift; sourceTree = "<group>"; };
 		C6CA50B424DAE5C000A35D76 /* HairColorCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HairColorCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,11 +54,7 @@
 		C6CA50C324DAE5C300A35D76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6CA50C524DAE5C300A35D76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6CA50CA24DAE5C300A35D76 /* HairColorCameraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HairColorCameraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6CA50CE24DAE5C400A35D76 /* HairColorCameraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairColorCameraTests.swift; sourceTree = "<group>"; };
-		C6CA50D024DAE5C400A35D76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6CA50D524DAE5C400A35D76 /* HairColorCameraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HairColorCameraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6CA50D924DAE5C400A35D76 /* HairColorCameraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairColorCameraUITests.swift; sourceTree = "<group>"; };
-		C6CA50DB24DAE5C400A35D76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				C6CA50B624DAE5C000A35D76 /* HairColorCamera */,
-				C6CA50CD24DAE5C400A35D76 /* HairColorCameraTests */,
-				C6CA50D824DAE5C400A35D76 /* HairColorCameraUITests */,
 				C6CA50B524DAE5C000A35D76 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,11 +108,14 @@
 				C6CA50B924DAE5C000A35D76 /* SceneDelegate.swift */,
 				C6CA50BB24DAE5C000A35D76 /* ContentView.swift */,
 				C662B5E1252DB2090067CA57 /* SemanticSegmentationCamera.swift */,
+				C63059AB25E78C3400D3C6D6 /* ColorData.csv */,
 				C662B5E9252DB2BB0067CA57 /* CIChangeHairColor.swift */,
 				C6CA50BD24DAE5C300A35D76 /* Assets.xcassets */,
 				C6CA50C224DAE5C300A35D76 /* LaunchScreen.storyboard */,
 				C6CA50C524DAE5C300A35D76 /* Info.plist */,
 				C6CA50BF24DAE5C300A35D76 /* Preview Content */,
+				C63059B025E78C7500D3C6D6 /* ColorMatrix.swift */,
+				C63059B825E87F6C00D3C6D6 /* ColorChanger.swift */,
 			);
 			path = HairColorCamera;
 			sourceTree = "<group>";
@@ -125,24 +126,6 @@
 				C6CA50C024DAE5C300A35D76 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		C6CA50CD24DAE5C400A35D76 /* HairColorCameraTests */ = {
-			isa = PBXGroup;
-			children = (
-				C6CA50CE24DAE5C400A35D76 /* HairColorCameraTests.swift */,
-				C6CA50D024DAE5C400A35D76 /* Info.plist */,
-			);
-			path = HairColorCameraTests;
-			sourceTree = "<group>";
-		};
-		C6CA50D824DAE5C400A35D76 /* HairColorCameraUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C6CA50D924DAE5C400A35D76 /* HairColorCameraUITests.swift */,
-				C6CA50DB24DAE5C400A35D76 /* Info.plist */,
-			);
-			path = HairColorCameraUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C63059AC25E78C3400D3C6D6 /* ColorData.csv in Resources */,
 				C6CA50C424DAE5C300A35D76 /* LaunchScreen.storyboard in Resources */,
 				C6CA50C124DAE5C300A35D76 /* Preview Assets.xcassets in Resources */,
 				C6CA50BE24DAE5C300A35D76 /* Assets.xcassets in Resources */,
@@ -277,8 +261,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C662B5EA252DB2BB0067CA57 /* CIChangeHairColor.swift in Sources */,
+				C63059B125E78C7500D3C6D6 /* ColorMatrix.swift in Sources */,
 				C662B5E2252DB2090067CA57 /* SemanticSegmentationCamera.swift in Sources */,
 				C6CA50B824DAE5C000A35D76 /* AppDelegate.swift in Sources */,
+				C63059B925E87F6C00D3C6D6 /* ColorChanger.swift in Sources */,
 				C612597D256F73FF00F5D953 /* filter.metal in Sources */,
 				C6CA50BA24DAE5C000A35D76 /* SceneDelegate.swift in Sources */,
 				C6CA50BC24DAE5C000A35D76 /* ContentView.swift in Sources */,
@@ -289,7 +275,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6CA50CF24DAE5C400A35D76 /* HairColorCameraTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +282,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6CA50DA24DAE5C400A35D76 /* HairColorCameraUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
