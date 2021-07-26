@@ -65,7 +65,7 @@ class CIResizeImageWith: CIFilter {
         , let backgraoundImage = backgroundImage
         else { return nil }
         
-        // 写真に合わせてMatte画像のスケールを拡大
+        // Matte画像に合わせて写真のスケールを縮小
         let scaleFilter = CIFilter.lanczosScaleTransform()
         let targetHeight = backgraoundImage.extent.height
         let baseHight = inputImage.extent.height
