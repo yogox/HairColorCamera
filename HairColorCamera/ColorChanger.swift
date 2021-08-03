@@ -10,8 +10,7 @@ import SwiftUI
 import CoreImage
 
 class ColorChanger: ObservableObject {
-    private let colorContext = CIContext(options: [.workingColorSpace: kCFNull])
-    private let context = CIContext(options: nil)
+    private let linearContext = CIContext(options: [.workingColorSpace: kCFNull])
 
     @Published var image: UIImage?
     var photoImage: CIImage?
@@ -54,7 +53,7 @@ class ColorChanger: ObservableObject {
 
         let point = CGPoint(x: 0, y: 0)
         var bitmap = [UInt8](repeating: 0, count: 4)
-        self.colorContext.render(colorInfo, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: point.x, y: point.y, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
+        self.linearContext.render(colorInfo, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: point.x, y: point.y, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
         
         let redInteger = Int(bitmap[0].description) ?? 0
         let redc = CGFloat(redInteger)/255
@@ -129,7 +128,7 @@ class ColorChanger: ObservableObject {
 
         let newImage = compositeFilter.outputImage!
         // Imageクラスで描画されるようにCGImage経由でUIImageに変換する必要がある
-        let cgImage = context.createCGImage(newImage, from: newImage.extent)
+        let cgImage = linearContext.createCGImage(newImage, from: newImage.extent)
         self.image = UIImage(cgImage: cgImage!)
     }
     
