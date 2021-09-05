@@ -66,7 +66,7 @@ extern "C" { namespace coreimage {
         modeLightness = float(modeIndex) / (BIN_NUM - 1);
         
         // 各明度で色を構成
-        lightnessInfo = float4(minLightness, maxLightness, modeLightness, 1.0);
+        lightnessInfo = float4(minLightness, modeLightness, maxLightness, 1.0);
         return lightnessInfo;
     }
     
